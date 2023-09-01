@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 const delay = document.querySelector(".delay-js");
 const step = document.querySelector(".step-js");
 const amount = document.querySelector(".amount-js")
@@ -32,10 +34,10 @@ function createPromise(position, delay) {
   });
   promise
     .then(({ position, delay }) => {
-      console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
     })
     .catch(({ position, delay }) => {
-      console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+      Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
     });
 }
 
