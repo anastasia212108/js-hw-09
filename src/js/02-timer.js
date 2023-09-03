@@ -1,5 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import * as basicLightbox from 'basiclightbox';
 
 const inputText = document.querySelector("#datetime-picker");
 const btnStart = document.querySelector("button");
@@ -20,11 +21,24 @@ const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
-  minuteIncrement: 1,
+    minuteIncrement: 1,
+  
   onClose(selectedDates) {
       if (selectedDates[0] <= new Date()) {
-          window.alert("Please choose a date in the future");
+          const windowAlert = window.alert("Please choose a date in the future");
+//           const instance = basicLightbox.create(windowAlert);
+//           function onShow() { inputText.addEventListener("click", onEscClick) };
+//           function onClose() { inputText.removeEventListener("click", onEscClick) };
+//           instance.show(onShow);  
+//           instance.close(onClose);
+//   function onEscClick(evt) {
+//     if (evt.code === "a") {
+//       basicLightboxEl.close();
+//     }
+//   }
+
       } else {
+          
           btnStart.disabled = false;
         
           btnStart.addEventListener("click", handlerClick);
@@ -58,19 +72,24 @@ const options = {
                   elements.hours.textContent = addLeadingZero(convertMs(ms).hours);
                   elements.minutes.textContent = addLeadingZero(convertMs(ms).minutes);
                   elements.seconds.textContent = addLeadingZero(convertMs(ms).seconds);
-
-              }, 1000);
-              setTimeout(() => {
+                          if (ms < 1000) {
                       clearInterval(idTimer);
-                  }, ms * 1000);   
+                  }
+              }, 1000);
+        
+          
           };
       }
+      
     },
+  
  
 };
 
 inputText.addEventListener("click", flatpickr);
 flatpickr(inputText, options);
+
+
 
 
 
